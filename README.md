@@ -1,2 +1,2 @@
-# janga_bang
-arduino and  bang janga
+# jenga bang
+arduino and  bang jenga

@@ -23,8 +23,7 @@ void setup() {
   digitalWrite(bangPin, LOW);
   
   Serial.begin(9600);
-  bangNum = analogRandom(4,8);
-  bangNum=2;
+  bangNum = analogRandom(3,8);
 }
 
 int analogRandom(int a, int b){
@@ -63,7 +62,7 @@ void loop() {
     digitalWrite(bangPin, HIGH);
     delay(500);
     digitalWrite(bangPin, LOW);
-    bangNum=2;
+    bangNum=analogRandom(3,8);
     while(digitalRead(resetButton)==HIGH){
       delay(800);
       }

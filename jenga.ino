@@ -11,7 +11,7 @@ int resetButton = 12; // button for new game
 
 int bangNum = 3; // number of vibrations before the bang 
 int cycle=2000;
-int peep,minus;
+int peep,minus, resetStateOld, newGame=1;
 
 void setup() {
   pinMode(ledPin, OUTPUT);  
@@ -23,7 +23,7 @@ void setup() {
   digitalWrite(bangPin, LOW);
   
   Serial.begin(9600);
-  bangNum = analogRandom(3,8);
+  bangNum = analogRandom(3,7);
 }
 
 int analogRandom(int a, int b){
@@ -34,15 +34,19 @@ int analogRandom(int a, int b){
   }
 
 void loop() {
-  while(digitalRead(resetButton)==LOW){
+  if(newGame)
+  {
+    resetStateOld=digitalRead(resetButton);
+    while(digitalRead(resetButton)==resetStateOld){
     delay(200);
     Serial.print(".");
     }
-  Serial.println("");
+  }
+  newGame=0;
   
   Serial.print("bangNum ");
   Serial.println(bangNum);
-  cycle = analogRandom(10000,30000);
+  cycle = analogRandom(5000,20000);
   
   minus=5000;
   peep=500;
@@ -62,10 +66,8 @@ void loop() {
     digitalWrite(bangPin, HIGH);
     delay(500);
     digitalWrite(bangPin, LOW);
-    bangNum=analogRandom(3,8);
-    while(digitalRead(resetButton)==HIGH){
-      delay(800);
-      }
+    bangNum=analogRandom(3,7);
+    newGame=1;
     } 
   else{
   Serial.println("vibro");
